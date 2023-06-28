@@ -14,8 +14,7 @@ def preparar():
         with open(ARQUIVO_DE_CONFIGURACAO, "r", encoding='utf-8') as arquivo:
             configuracao = json.load(arquivo)
             if configuracao:
-                print("*---Carregado os aquivos de configuração!---*")
-            arquivo.close()
+                arquivo.close()
 
             preparado = True
     except Exception as e:
@@ -65,7 +64,7 @@ def reconhecer_alunos(configuracao, visitantes):
 def reconhecer_intrusos(configuracao, visitantes):
     
 
-    print("Realizando reconhecimento dos intrusos...")
+   
     foto_visitantes = reconhecedor.load_image_file(visitantes["foto"])
     caracteristicas_dos_visitantes = reconhecedor.face_encodings(
         foto_visitantes)
@@ -149,14 +148,15 @@ def aluno_no_refeitorio(alunos_reconhecidos, probabilidade_ir_ao_refeitorio):
     total_de_alunos_refeitorio = 0
     
     
-    for aluno in alunos_reconhecidos.values():
-        if aluno["na_instituicao"] and not aluno["no_refeitorio"]:
-            enviar_pro_refeitorio = (random.randint(
-                        1, 100)) <= probabilidade_ir_ao_refeitorio
-            if enviar_pro_refeitorio:
-                aluno["no_refeitorio"] = True
-                        
-                total_de_alunos_refeitorio += 1
+    
+    for id_entrada, aluno in list(alunos_reconhecidos.items()):
+      if not aluno["na_instituicao"] and not aluno["no_refeitorio"]:
+        enviar_pro_refeitorio = random.randint(1, 100) <= probabilidade_ir_ao_refeitorio
+        if enviar_pro_refeitorio:
+            aluno["no_refeitorio"] = True
+            
+            total_de_alunos_refeitorio += 1
+
                         
     return total_de_alunos_refeitorio
    
@@ -164,8 +164,9 @@ def aluno_no_refeitorio(alunos_reconhecidos, probabilidade_ir_ao_refeitorio):
 def aluno_saida_refeitorio(alunos_reconhecidos,probabilidade_de_liberacao_do_refeitorio):
     
     saida_alunos_refeitorio = 0
-    for aluno in alunos_reconhecidos.values():
-        if aluno["no_refeitorio"]:
+    
+    for id_entrada,aluno in list(alunos_reconhecidos.items()):
+        if not aluno["no_refeitorio"]:
             aluno_liberado = (random.randint(
                         1, 100)) <= probabilidade_de_liberacao_do_refeitorio
             if aluno_liberado:

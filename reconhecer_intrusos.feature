@@ -1,11 +1,11 @@
 Feature: reconhecimento de intrusos
 
-  Scenario: Um visitante chega na portaria da instituicao e deve ser reconhecido por uma camera
+  Scenario: Um intruso chega na portaria da instituicao e não deve ser reconhecido por uma camera
   Given o ambiente de reconhecimento seja preparado com sucesso
   When a foto faces/Olivia.jpg de visitantes for capturada
   Then nehum intruso reconhecido
 
-  Scenario: Uma pessoa chega na portaria da instituicao e nao deve ser reconhecido por uma camera
+  Scenario: Uma intruso chega na portaria da instituicao deve ser reconhecido por uma camera
   Given o ambiente de reconhecimento seja preparado com sucesso
   When a foto faces/Aimee2.jpg de intrusos for capturada
   Then pelo menos, um(a) intruso deve ser reconhecido(a)

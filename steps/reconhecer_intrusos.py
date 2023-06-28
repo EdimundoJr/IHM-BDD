@@ -11,18 +11,14 @@ def when_foto_de_visitantes_capturada(context, foto):
     
 @then('pelo menos, um(a) intruso deve ser reconhecido(a)')
 def then_um_intruso_reconhecido(context):
-  assert context.intrusos_reconhecidos  is not None and len(context.intrusos_reconhecidos ) > 0
-    
-    
+  assert context.intrusos_reconhecidos  is not None and len(context.intrusos_reconhecidos ) > 0 
 
 @then('nehum intruso reconhecido')
 def then_intruso_nao_reconhecido(context):
     intrusos_reconhecidos, _ = reconhecer_intrusos(
         context.configuracao, context.visitantes)
 
-    assert not intrusos_reconhecidos
-    
-    
+    assert not intrusos_reconhecidos      
  
 @then('{total_de_reconhecimentos} intrusos deve(m) ser reconhecidos')
 def then_total_de_intrusos_reconhecidos(context, total_de_reconhecimentos):

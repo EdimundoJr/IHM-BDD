@@ -6,10 +6,10 @@ def when_probabilidade_de_sair(context, probabilidade):
    context.total_alunos_saindo = saida_alunos(context.alunos_reconhecidos, int(probabilidade))
    
 @then("pelo menos, um(a) aluno deve sair")
-def then_pacientes_liberados(context):
+def then_aluno_saindo(context):
     assert context.total_alunos_saindo > 0
  
 @then("nenhum aluno deve sair")
-def then_pacientes_liberados(context):
+def then_nenhum_aluno_saindo(context):
     assert context.total_alunos_saindo == 0
 
